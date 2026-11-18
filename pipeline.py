@@ -15,8 +15,8 @@ def remove_quotes(value):
     return value.replace('"','')
 
 def date_difference(df,datecol1,datecol2,newcol):
-    start = pd.to_datetime(df[datecol1])
-    end = pd.to_datetime(df[datecol2])
+    start = pd.to_datetime(df[datecol1], format="%d/%m/%Y")
+    end = pd.to_datetime(df[datecol2], format="%d/%m/%Y")
     difference = end - start
     df[newcol] = difference.dt.days
     return df
