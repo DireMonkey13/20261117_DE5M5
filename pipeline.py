@@ -3,8 +3,20 @@
 import pandas as pd
 from sqlalchemy import create_engine, URL, text
 import urllib
+import argparse
 
+#Parser
 
+parser=argparse.ArgumentParser()
+parser.add_argument("path",help="The path to the folder containing the input files")
+args=parser.parse_args()
+print("Directory path set to: " + args.path)
+
+#Set variables
+
+filedirectory=args.path
+bookfile="03_Library Systembook.csv"
+customersfile="03_Library SystemCustomers.csv"
 
 #Functions
 
@@ -70,7 +82,9 @@ def date_difference(df,datecol1,datecol2,newcol):
 ################################
 
 # Load the original CSV
-df_original = pd.read_csv( r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library Systembook.csv")
+#df_original = pd.read_csv( r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library Systembook.csv")
+
+df_original = pd.read_csv( filedirectory + bookfile )
 
 # Create a copy to use for data cleaning
 df_clean = df_original.copy()
@@ -108,9 +122,11 @@ negative_days = df_clean["Days Borrowed"] < 0
 df_invalid = pd.concat( [df_invalid, df_clean[negative_days]], ignore_index=True)
 df_clean = df_clean[~negative_days].reset_index(drop=True)
 
+#df_clean.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_Systembook_Cleaned.csv", index=False)
+#df_invalid.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_Systembook_Invalid.csv", index=False)
 
-df_clean.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_Systembook_Cleaned.csv", index=False)
-df_invalid.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_Systembook_Invalid.csv", index=False)
+df_clean.to_csv( filedirectory+"Cleaned_"+bookfile, index = False)
+df_invalid.to_csv( filedirectory+"Invalid_"+bookfile, index = False)
 
 #output_to_sql(df_clean,"Systembook")
 #output_to_sql(df_invalid,"Systembook_invalid")
@@ -143,7 +159,9 @@ df_invalid.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_System
 ################################
 
 # Load the original CSV
-df_original = pd.read_csv( r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library SystemCustomers.csv")
+#df_original = pd.read_csv( r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library SystemCustomers.csv")
+
+df_original = pd.read_csv( filedirectory + customersfile )
 
 # Create a copy to use for data cleaning
 df_clean = df_original.copy()
@@ -166,5 +184,8 @@ df_clean.reset_index(drop=True,inplace=True)
 #Convert IDs back to integer
 df_clean["Customer ID"] = df_clean["Customer ID"].astype(int)
 
-df_clean.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_SystemCustomers_Cleaned.csv", index=False)
-df_invalid.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_SystemCustomers_Invalid.csv", index=False)
+#df_clean.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_SystemCustomers_Cleaned.csv", index=False)
+#df_invalid.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_SystemCustomers_Invalid.csv", index=False)
+
+df_clean.to_csv( filedirectory+"Cleaned_"+customersfile, index = False)
+df_invalid.to_csv( filedirectory+"Invalid_"+customersfile, index = False)
