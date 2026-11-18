@@ -44,22 +44,22 @@ def date_difference(df,datecol1,datecol2,newcol):
 #    f"mssql+pyodbc:///?odbc_connect={connection_url}"
 #)
 
-server = 'localhost'
-database = 'LibrarySystem'
-driver = 'ODBC Driver 17 for SQL Server'
+#server = 'localhost'
+#database = 'LibrarySystem'
+#driver = 'ODBC Driver 17 for SQL Server'
 
-connection_url= URL.create(
-    "mssql+pyodbc",
-    host=server,
-    database=database,
-    query={
-        "driver": driver,
-        "Trusted_Connection":"yes",
-        "TrustServerCertificate":"yes",
-    },
-)
+#connection_url= URL.create(
+#    "mssql+pyodbc",
+#    host=server,
+#    database=database,
+#    query={
+#        "driver": driver,
+#        "Trusted_Connection":"yes",
+#        "TrustServerCertificate":"yes",
+#    },
+#)
 
-engine = create_engine(connection_url)
+#engine = create_engine(connection_url)
 
 ################################
 ################################
@@ -115,18 +115,18 @@ df_invalid.to_csv(r"C:\Users\Admin\Desktop\20261117_DE5M5\data\03_Library_System
 #output_to_sql(df_clean,"Systembook")
 #output_to_sql(df_invalid,"Systembook_invalid")
 
-with engine.connect() as connection:
-    result= connection.execute(
-        text("TRUNCATE TABLE[Systembook]")
-    )
+#with engine.connect() as connection:
+#    result= connection.execute(
+#        text("TRUNCATE TABLE[Systembook]")
+#    )
 #with engine.begin() as sqlconn:
 #    sqlconn.execute(text("TRUNCATE TABLE[Systembook_invalid]"))
 
-df_clean.to_sql(
-    name='Systembook',
-    con=engine,
-    if_exists='append',
-    index=False )
+#df_clean.to_sql(
+#    name='Systembook',
+#    con=engine,
+#    if_exists='append',
+#    index=False )
 
 #df_invalid.to_sql(
 #    name='Systembook_invalid',
