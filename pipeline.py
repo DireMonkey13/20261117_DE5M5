@@ -231,7 +231,8 @@ metrics = pd.DataFrame([
     { 
         "File" : bookfile,
         "Input Rows" : book_input_rows,
-        "Cleaned Rows" : book_invalid_rows,
+        "Cleaned Rows" : book_clean_rows,
+        "Invalid Rows" : book_invalid_rows,
         "Blank Rows Dropped" : book_blank_rows,
         "Rejected Null/Invalid" : book_null_rejected,
         "Rejected Negative Days" : book_negative_rejected,
@@ -242,7 +243,8 @@ metrics = pd.DataFrame([
     {
         "File" : customersfile,
         "Input Rows" : customer_input_rows,
-        "Cleaned Rows" : customer_invalid_rows,
+        "Cleaned Rows" : customer_clean_rows,
+        "Invalid Rows" : customer_invalid_rows,
         "Blank Rows Dropped" : customer_blank_rows,
         "Rejected Null/Invalid" : customer_null_rejected,
         "Rejected Negative Days" : 0,
