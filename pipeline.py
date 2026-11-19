@@ -1,7 +1,7 @@
 #Imports
 
 import pandas as pd
-from sqlalchemy import create_engine, URL, text
+#from sqlalchemy import create_engine, URL, text
 import urllib
 import argparse
 

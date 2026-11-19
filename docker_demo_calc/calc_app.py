@@ -39,16 +39,6 @@ if __name__ == "__main__":
     db_path = Path("/data/calculator.db")
 
     conn = sqlite3.connect(db_path)
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS Results (
-            firstnumber REAL NOT NULL,
-            secondnumber REAL NOT NULL,
-            operator TEXT NOT NULL,
-            result REAL NOT NULL
-        )
-    """)
 
     firstnum = 247
     secondnum = 12
@@ -64,7 +54,22 @@ if __name__ == "__main__":
     with sqlite3.connect(db_path) as conn:
         cursor = conn.cursor()
         cursor.execute("""
+            CREATE TABLE IF NOT EXISTS Results (
+                firstnumber REAL NOT NULL,
+                secondnumber REAL NOT NULL,
+                operator TEXT NOT NULL,
+                result REAL NOT NULL
+            )
+            """
+        )
+        cursor.execute("""
             INSERT INTO Results (firstnumber, secondnumber, operator, result) VALUES (?,?,?,?)
         """ , (firstnum,secondnum,"/",myCalc.get_division()))
-        conn.commit()
-        conn.close()
+
+        inserted_id=cursor.lastrowid
+        cursor.execute("SELECT * FROM Results WHERE rowid = ?",(inserted_id,))
+        added_row = cursor.fetchone()
+        print(f"Row added to database:{added_row}")
+
+
+    conn.close()
